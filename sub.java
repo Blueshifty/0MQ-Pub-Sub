@@ -40,12 +40,12 @@ public class sub
         switch(arg){
             case "1":{
                 System.out.println("Interneti Kes Emri Geldi.");
-                Process runtime1 = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=80 action=block dir=OUT");
-                Process runtime2 = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=80 action=block dir=IN");
-                Process runtime3 = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=8080 action=block dir=OUT"); 
-                Process runtime4 = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=8080 action=block dir=IN");
-                Process runtime5 = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=443 action=block dir=OUT");
-                Process runtime6 = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=443 action=block dir=IN");
+                Process runtime = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=80 action=block dir=OUT");
+                runtime = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=80 action=block dir=IN");
+                runtime = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=8080 action=block dir=OUT"); 
+                runtime = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=8080 action=block dir=IN");
+                runtime = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=443 action=block dir=OUT");
+                runtime = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=443 action=block dir=IN");
                 break;
             }
             case "2":{
