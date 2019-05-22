@@ -3,21 +3,23 @@ import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Socket;
 import org.zeromq.ZContext;
 
-
 public class sub
 {
     public static void main(String[] args)throws Exception
     {
-         ZContext context = new ZContext();
-         Socket subscriber = context.createSocket(SocketType.SUB);
-         subscriber.connect("tcp://142.93.233.0:5217");
-         subscriber.subscribe(args[0].getBytes(ZMQ.CHARSET));
-         while (!Thread.currentThread().isInterrupted()){
-            String adres = subscriber.recvStr();
-            String emir = subscriber.recvStr();
-            itaat_et(emir);
-            if(emir.equals("3")){break;}
-            }
+        ZContext baglam = new ZContext();
+        Socket subSocket = baglam.createSocket(SocketType.SUB);
+        String uri = "tcp://142.93.233.0:5217";
+        String emir = "Subscriber";
+        subSocket.connect(uri);
+        subSocket.subscribe(args[0].getBytes(ZMQ.CHARSET));
+        System.out.println(uri+" Adresine ["+ args[0]+"] Grubuna Subscribe Olundu.");
+        while(!emir.equals("3"))
+        {
+           String adres = subSocket.recvStr();
+           emir = subSocket.recvStr();
+           itaatEt(emir);
+        }
     }
 
     /*                                  ***>>CMD KOMUTLARI<<*** 
@@ -34,10 +36,10 @@ public class sub
     netsh advfirewall firewall delete rule name="Block Ports"
     */
 
-    public static void itaat_et(String arg)throws Exception{
+    public static void itaatEt(String arg)throws Exception{
         switch(arg){
             case "1":{
-                System.out.println("Interneti Kes Emri Geldi");
+                System.out.println("Interneti Kes Emri Geldi.");
                 Process runtime1 = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=80 action=block dir=OUT");
                 Process runtime2 = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=80 action=block dir=IN");
                 Process runtime3 = Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"Block Ports\" protocol=TCP remoteport=8080 action=block dir=OUT"); 
@@ -47,16 +49,16 @@ public class sub
                 break;
             }
             case "2":{
-                System.out.println("Interneti Ac Emri Geldi");
+                System.out.println("Interneti Ac Emri Geldi.");
                 Process runtime = Runtime.getRuntime().exec("netsh advfirewall firewall delete rule name=\"Block Ports\"");
                 break;
             }
             case "3":{
-                System.out.println("Iletisimi Kesme Emri Gonderildi");
+                System.out.println("Iletisimi Kesme Emri Gonderildi.");
                 break;
             }
             default:{
-                System.out.println("Iletisimde Bir Hata Olustu");
+                System.out.println("Iletisimde Bir Hata Olustu!");
             }
         }
     }
